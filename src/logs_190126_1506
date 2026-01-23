@@ -1,0 +1,1017 @@
+WebRTC room connected
+host-console-events.js:1 publishing track 
+Object
+host-console-events.js:1 🟢 CONNECTED
+host-console-events.js:1 💬 MESSAGE 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(0)
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(10)
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"I found a few options that might be perfect for your villa backyard:\n\nFirst, we have the Diwali Curtain and Fairy Light Decor for one thousand fifty AED. Another option is the Diwali Floral and Light Decor for one thousand one hundred fifty AED. We also have Gazebo Fairy Lights, measuring six by three, for one thousand eight hundred sixty-eight AED. Lastly, there's the Festive Lights and Garlands Diwali Home Decor for one thousand five hundred AED, and Diwali Floral Lightning Decor for one thousand fifty AED.\n\nDo any of these sound like what you're looking for, or would you like to explore more options or perhaps refine your search?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Yeah, I like the gazebo fairy light 6x3."
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Excellent choice! The Gazebo Fairy Lights six by three will create a wonderful ambiance. How many of these would you like to add to your cart?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🛒 addProductToCart gid://shopify/Product/6979397582914 1
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Only one."
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Great! I've added one Gazebo Fairy Lights six by three to your cart. Is there anything else I can help you find for your event today?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Should I also add some food options for the dinner party?"
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"That's a great idea! Food is definitely a key part of any dinner party. I can certainly help you explore some catering options. To give you the best suggestions, could you tell me a little more about the dinner party? For example, what kind of cuisine are you thinking of, or how many guests will you be having?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Since it is in Dubai and the guests are traveling from outside of Dubai, so Middle Eastern cuisine will be good."
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"That's a wonderful idea to offer Middle Eastern cuisine, especially for guests traveling from outside Dubai! It will give them a true taste of the region. Let me see what delicious Middle Eastern food options we have available for your dinner party.\n"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+parameters
+: 
+{context: 'dinner party', query: 'Middle Eastern cuisine'}
+service_id
+: 
+"EUsRyq1jo1iHcFJwVZT3"
+state
+: 
+"loading"
+timestamp
+: 
+"2026-01-19T08:29:27.145536+00:00"
+tool_call_id
+: 
+"tlcal_4301kfanz2q9eby9agxsmzbcchkf"
+tool_description
+: 
+null
+tool_name
+: 
+"search_shop_catalog"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(0)
+length
+: 
+0
+[[Prototype]]
+: 
+Array(0)
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+parameters
+: 
+{context: 'dinner party', query: 'Middle Eastern cuisine'}
+result
+: 
+(6) [{…}, {…}, {…}, {…}, {…}, {…}]
+service_id
+: 
+"EUsRyq1jo1iHcFJwVZT3"
+state
+: 
+"success"
+timestamp
+: 
+"2026-01-19T08:29:28.824731+00:00"
+tool_call_id
+: 
+"tlcal_4301kfanz2q9eby9agxsmzbcchkf"
+tool_description
+: 
+null
+tool_name
+: 
+"search_shop_catalog"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(5)
+0
+: 
+{uri: 'ui://product/gid://shopify/Product/6806312943682', mimeType: 'text/uri-list', meta: null, text: 'https://mcpstorefront.com/img/storefront/product-s…d=gid://shopify/Product/6806312943682&mode=prompt', __toolName: 'search_shop_catalog', …}
+1
+: 
+{uri: 'ui://product/gid://shopify/Product/6806313369666', mimeType: 'text/uri-list', meta: null, text: 'https://mcpstorefront.com/img/storefront/product-s…d=gid://shopify/Product/6806313369666&mode=prompt', __toolName: 'search_shop_catalog', …}
+2
+: 
+{uri: 'ui://product/gid://shopify/Product/6805405532226', mimeType: 'text/uri-list', meta: null, text: 'https://mcpstorefront.com/img/storefront/product-s…d=gid://shopify/Product/6805405532226&mode=prompt', __toolName: 'search_shop_catalog', …}
+3
+: 
+{uri: 'ui://product/gid://shopify/Product/6791278460994', mimeType: 'text/uri-list', meta: null, text: 'https://mcpstorefront.com/img/storefront/product-s…d=gid://shopify/Product/6791278460994&mode=prompt', __toolName: 'search_shop_catalog', …}
+4
+: 
+{uri: 'ui://product/gid://shopify/Product/6806313828418', mimeType: 'text/uri-list', meta: null, text: 'https://mcpstorefront.com/img/storefront/product-s…d=gid://shopify/Product/6806313828418&mode=prompt', __toolName: 'search_shop_catalog', …}
+length
+: 
+5
+[[Prototype]]
+: 
+Array(0)
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"I found a fantastic option for Middle Eastern cuisine: the Arabic Buffet by Abela Company. This offers a range of menu choices and can cater to different group sizes.\n\nTo help me give you the most accurate details and pricing, could you please tell me approximately how many guests you're expecting for your dinner party?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Up to 50%."
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Thank you for clarifying! To ensure I recommend the perfect Arabic Buffet by Abela Company for your dinner party, could you please provide a more specific number of guests, for example, \"up to fifty guests\" or \"around forty guests\"? This will help me determine the best menu and pricing options for you."
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Between 40 to 50 people."
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Thank you for clarifying! For between forty to fifty people, the Arabic Buffet by Abela Company offers several menu options.\n\nTo proceed, could you please tell me which menu option you would prefer? The available options are Menu one, Menu two, Menu three, Menu four, and Menu five."
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Menu 2 looks good."
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Excellent choice! Menu two for the Arabic Buffet by Abela Company sounds delicious. To confirm the details and add it to your cart, I need to get the specific variant for \"Menu two\" for \"thirty-six to fifty people\" with \"Dubai\" as the delivery location.\n"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+parameters
+: 
+product_id
+: 
+"gid://shopify/Product/6791278460994"
+[[Prototype]]
+: 
+Object
+service_id
+: 
+"EUsRyq1jo1iHcFJwVZT3"
+state
+: 
+"loading"
+timestamp
+: 
+"2026-01-19T08:30:50.257990+00:00"
+tool_call_id
+: 
+"tlcal_9101kfap1kwhecc86rj8zpenj08y"
+tool_description
+: 
+null
+tool_name
+: 
+"get_product_details"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(0)
+length
+: 
+0
+[[Prototype]]
+: 
+Array(0)
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+parameters
+: 
+product_id
+: 
+"gid://shopify/Product/6791278460994"
+[[Prototype]]
+: 
+Object
+result
+: 
+Array(2)
+0
+: 
+{type: 'text', text: '{"product":{"product_id":"gid://shopify/Product/67…ice":"110.0","currency":"AED","available":true}}}', annotations: null, meta: null}
+1
+: 
+{type: 'resource', resource: {…}, annotations: null, meta: null}
+length
+: 
+2
+[[Prototype]]
+: 
+Array(0)
+service_id
+: 
+"EUsRyq1jo1iHcFJwVZT3"
+state
+: 
+"success"
+timestamp
+: 
+"2026-01-19T08:30:51.635812+00:00"
+tool_call_id
+: 
+"tlcal_9101kfap1kwhecc86rj8zpenj08y"
+tool_description
+: 
+null
+tool_name
+: 
+"get_product_details"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(1)
+0
+: 
+meta
+: 
+null
+mimeType
+: 
+"text/uri-list"
+text
+: 
+"https://mcpstorefront.com/img/storefront/product.component.html?store_domain=book.hafla.com&inline=true&product_handle=arabic-buffet-by-taste-studio&mode=prompt"
+uri
+: 
+"ui://product/gid://shopify/Product/6791278460994"
+__batch
+: 
+1768811451848
+__toolName
+: 
+"get_product_details"
+[[Prototype]]
+: 
+Object
+length
+: 
+1
+[[Prototype]]
+: 
+Array(0)
+host-console-events.js:1 ⚡ UI ACTION 
+Object
+__grammarly
+: 
+frameId
+: 
+"23b96836-2bce-de0b-227c-3ce5f2794bfd"
+kind
+: 
+"frameId.response"
+requestId
+: 
+"0ef8ea02-0d88-6d3a-e907-cdc4d03831ef"
+[[Prototype]]
+: 
+Object
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+parameters
+: 
+context
+: 
+"dinner party"
+filters
+: 
+Array(3)
+0
+: 
+variantOption
+: 
+{name: 'Menu Option', value: 'Menu 2'}
+[[Prototype]]
+: 
+Object
+1
+: 
+variantOption
+: 
+{value: '36-50', name: 'No of Pax'}
+[[Prototype]]
+: 
+Object
+2
+: 
+variantOption
+: 
+{name: 'Delivery Location', value: 'Dubai'}
+[[Prototype]]
+: 
+Object
+length
+: 
+3
+[[Prototype]]
+: 
+Array(0)
+query
+: 
+"Arabic Buffet by Abela Co."
+[[Prototype]]
+: 
+Object
+service_id
+: 
+"EUsRyq1jo1iHcFJwVZT3"
+state
+: 
+"loading"
+timestamp
+: 
+"2026-01-19T08:30:59.010375+00:00"
+tool_call_id
+: 
+"tlcal_7701kfap1we2f8a9gv6axrqnk707"
+tool_description
+: 
+null
+tool_name
+: 
+"search_shop_catalog"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(0)
+length
+: 
+0
+[[Prototype]]
+: 
+Array(0)
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+parameters
+: 
+context
+: 
+"dinner party"
+filters
+: 
+Array(3)
+0
+: 
+variantOption
+: 
+{name: 'Menu Option', value: 'Menu 2'}
+[[Prototype]]
+: 
+Object
+1
+: 
+variantOption
+: 
+name
+: 
+"No of Pax"
+value
+: 
+"36-50"
+[[Prototype]]
+: 
+Object
+[[Prototype]]
+: 
+Object
+2
+: 
+variantOption
+: 
+name
+: 
+"Delivery Location"
+value
+: 
+"Dubai"
+[[Prototype]]
+: 
+Object
+[[Prototype]]
+: 
+Object
+length
+: 
+3
+[[Prototype]]
+: 
+Array(0)
+query
+: 
+"Arabic Buffet by Abela Co."
+[[Prototype]]
+: 
+Object
+result
+: 
+(2) [{…}, {…}]
+service_id
+: 
+"EUsRyq1jo1iHcFJwVZT3"
+state
+: 
+"success"
+timestamp
+: 
+"2026-01-19T08:31:00.491487+00:00"
+tool_call_id
+: 
+"tlcal_7701kfap1we2f8a9gv6axrqnk707"
+tool_description
+: 
+null
+tool_name
+: 
+"search_shop_catalog"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(1)
+0
+: 
+meta
+: 
+null
+mimeType
+: 
+"text/uri-list"
+text
+: 
+"https://mcpstorefront.com/img/storefront/product-summary.component.html?store_domain=book.hafla.com&product_handle=arabic-buffet-by-taste-studio&product_id=gid://shopify/Product/6791278460994&mode=prompt"
+uri
+: 
+"ui://product/gid://shopify/Product/6791278460994"
+__batch
+: 
+1768811460624
+__toolName
+: 
+"search_shop_catalog"
+[[Prototype]]
+: 
+Object
+length
+: 
+1
+[[Prototype]]
+: 
+Array(0)
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"I've found the Arabic Buffet by Abela Company with Menu two for thirty-six to fifty people, available for delivery in Dubai. You can view more details and download the menu [here](https://book.hafla.com/products/arabic-buffet-by-taste-studio).\n\nWould you like to add this to your cart?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Can you tell me a tentative pricing how much it will cost for 50 people? Can you tell me the pricing for 50 people? Hello?"
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"For fifty people, the Arabic Buffet by Abela Company with Menu two is priced at approximately one hundred fifteen AED per person. This would bring the total cost to around five thousand seven hundred fifty AED. Would you like to proceed with adding this to your cart?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🛒 addProductToCart gid://shopify/Product/6791278460994 1
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Yes please go ahead."
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Go ahead add this to my cart."
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"I've added the Arabic Buffet by Abela Company, Menu two for thirty-six to fifty people, to your cart.\n\nSo far, your cart includes the Gazebo Fairy Lights six by three and the Arabic Buffet. Is there anything else I can assist you with for your event?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 ⚡ UI ACTION 
+Object
+payload
+: 
+{prompt: "[mcp-ui:view_details] use 'get_product_details' to…buffet-by-taste-studio from domain book.hafla.com"}
+type
+: 
+"prompt"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+parameters
+: 
+{product_id: 'gid://shopify/Product/6791278460994'}
+service_id
+: 
+"EUsRyq1jo1iHcFJwVZT3"
+state
+: 
+"loading"
+timestamp
+: 
+"2026-01-19T08:32:59.148940+00:00"
+tool_call_id
+: 
+"tlcal_8401kfap5hrcf6n8mjtw8502bcx6"
+tool_description
+: 
+null
+tool_name
+: 
+"get_product_details"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(0)
+length
+: 
+0
+[[Prototype]]
+: 
+Array(0)
+host-console-events.js:1 ✅ MCP TOOL CALL RECEIVED 
+Object
+parameters
+: 
+product_id
+: 
+"gid://shopify/Product/6791278460994"
+[[Prototype]]
+: 
+Object
+result
+: 
+Array(2)
+0
+: 
+{type: 'text', text: '{"product":{"product_id":"gid://shopify/Product/67…ice":"110.0","currency":"AED","available":true}}}', annotations: null, meta: null}
+1
+: 
+{type: 'resource', resource: {…}, annotations: null, meta: null}
+length
+: 
+2
+[[Prototype]]
+: 
+Array(0)
+service_id
+: 
+"EUsRyq1jo1iHcFJwVZT3"
+state
+: 
+"success"
+timestamp
+: 
+"2026-01-19T08:33:00.245367+00:00"
+tool_call_id
+: 
+"tlcal_8401kfap5hrcf6n8mjtw8502bcx6"
+tool_description
+: 
+null
+tool_name
+: 
+"get_product_details"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 🎨 UI RESOURCES 
+Array(1)
+0
+: 
+meta
+: 
+null
+mimeType
+: 
+"text/uri-list"
+text
+: 
+"https://mcpstorefront.com/img/storefront/product.component.html?store_domain=book.hafla.com&inline=true&product_handle=arabic-buffet-by-taste-studio&mode=prompt"
+uri
+: 
+"ui://product/gid://shopify/Product/6791278460994"
+__batch
+: 
+1768811580373
+__toolName
+: 
+"get_product_details"
+[[Prototype]]
+: 
+Object
+length
+: 
+1
+[[Prototype]]
+: 
+Array(0)
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"I've added the Arabic Buffet by Abela Company, Menu two for thirty-six to fifty people, to your cart.\n\nHere are the details for the Arabic Buffet by Abela Company:\nIt's priced between eighty-three AED and two hundred seventy-five AED. The description mentions \"Click Here to Download the menu,\" and you can find more information at this link: https://book.hafla.com/products/arabic-buffet-by-taste-studio.\n\nIs there anything else I can assist you with for your event?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Can you take me to my cart page?"
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"I can't directly take you to your cart page, as I don't have the ability to navigate web pages. However, I have successfully added both the Gazebo Fairy Lights and the Arabic Buffet to your cart. You should be able to access your cart through the website or application you are using."
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"just open take me to the checkout page"
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"I understand you'd like to go to the checkout page. As an AI, I can't directly open web pages for you. However, all the items you've selected, including the Gazebo Fairy Lights and the Arabic Buffet, are now in your cart. You should be able to find a \"Checkout\" button or link on your current page or within your cart summary to proceed with your purchase."
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Can you read out the check out link for me?"
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"I can certainly try to help you with that! To provide you with the correct checkout link, I need a cart ID. Do you happen to have a cart ID that I can use to retrieve your cart details and the checkout link?"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"No, I don't have it. You just added products to my cart, so you must have the cart ID."
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"You're absolutely right to point that out! My apologies for the confusion. While I successfully added the products to your cart, the tool I used to do so doesn't provide me with a specific cart identification number that I can then use to generate a direct checkout link for you.\n\nTypically, the website or application you're using manages that cart ID in the background. You should be able to find a cart icon, usually in the top right corner, or a \"Checkout\" button on the page you're currently viewing to proceed with your purchase."
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"OK thank you"
+role
+: 
+"user"
+source
+: 
+"user"
+[[Prototype]]
+: 
+Object
+host-console-events.js:1 💬 MESSAGE 
+Object
+message
+: 
+"Happy to help! If you need anything else for your event planning, feel free to ask. Have a wonderful day!\n"
+role
+: 
+"agent"
+source
+: 
+"ai"
+[[Prototype]]
+: 
+Object

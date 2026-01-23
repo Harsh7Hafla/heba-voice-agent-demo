@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --hafla-orange: #f26522;
+  --hafla-orange-light: #ff7e42;
+  --hafla-white: #ffffff;
+  --hafla-gray: #757575;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: white;
+  color: #333;
+}
+
+@theme {
+  --color-hafla-orange: var(--hafla-orange);
+  --color-hafla-white: var(--hafla-white);
+  --color-hafla-gray: var(--hafla-gray);
+  --font-basic: "Basic", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+.hafla-gradient {
+  background: linear-gradient(135deg, #f26522 0%, #ff8c5a 100%);
+}
+
+.hafla-button {
+  @apply bg-white text-hafla-orange px-8 py-3 rounded-full font-bold uppercase tracking-wider flex items-center gap-2 hover:bg-hafla-orange hover:text-white transition-all duration-300 shadow-lg;
+}
+
+.btn {
+  background: black;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+button {
+    cursor: pointer;
+}

@@ -1,0 +1,218 @@
+"use client";
+
+import { useConversation } from "@elevenlabs/react";
+import { UIResourceRenderer } from "@mcp-ui/client";
+import { useState } from "react";
+
+/* =========================
+   CONFIG
+========================= */
+
+const USE_MOCK_MODE = true; // 👈 switch to false for ElevenLabs
+
+/* =========================
+   TYPES
+========================= */
+
+type UIResource = {
+    uri?: string;
+    mimeType?: string;
+    text?: string;
+    __page?: "listing" | "product" | "cart";
+};
+
+/* =========================
+   MOCK DATA
+========================= */
+
+const MOCK_LISTING_RESOURCES = [
+    {
+        uri: "ui://product/gid://shopify/Product/7465914662978",
+        mimeType: "text/uri-list",
+        text: "https://mcpstorefront.com/img/storefront/product.component.html?store_domain=book.hafla.com&inline=true&product_handle=chiavari-chairs&mode=prompt",
+    },
+    {
+        uri: "ui://product/gid://shopify/Product/7471424241730",
+        mimeType: "text/uri-list",
+        text: "https://mcpstorefront.com/img/storefront/product.component.html?store_domain=book.hafla.com&inline=true&product_handle=lowell-chair&mode=prompt",
+    },
+];
+
+const MOCK_PRODUCT_DETAILS_RESOURCE = [
+    {
+        uri: "ui://product/gid://shopify/Product/7465914662978",
+        mimeType: "text/uri-list",
+        text: "https://mcpstorefront.com/img/storefront/product.component.html?store_domain=book.hafla.com&inline=true&product_handle=chiavari-chairs&mode=prompt&view=details",
+    },
+];
+
+
+const MOCK_CART_RESOURCE = [
+    {
+        uri: "ui://cart/current",
+        mimeType: "text/uri-list",
+        text: "https://mcpstorefront.com/img/storefront/cart.component.html?store_domain=book.hafla.com&inline=true",
+    },
+];
+
+
+/* =========================
+   APP
+========================= */
+
+export default function App() {
+    const [page, setPage] = useState < "listing" | "product" | "cart" > ("listing");
+    const [uiResources, setUiResources] = useState < UIResource[] > (MOCK_LISTING_RESOURCES);
+
+    /* =========================
+       ELEVENLABS (SAFE)
+    ========================= */
+
+    const conversation = useConversation({
+        connectionType: "webrtc",
+        enabled: !USE_MOCK_MODE,
+
+        clientTools: {
+            open_cart: async ({ cartUrl }: { cartUrl: string }) => {
+                window.open(cartUrl, "_blank", "noopener,noreferrer");
+                return "Opened cart";
+            },
+
+            redirect_to_checkout: async ({ url }: { url: string }) => {
+                window.open(url, "_blank", "noopener,noreferrer");
+                return "Redirected to checkout";
+            },
+        },
+
+        onMCPToolCall: (toolCall: any) => {
+            const resources =
+                toolCall.result
+                    ?.filter((r: any) => r.type === "resource")
+                    .map((r: any) => r.resource) ?? [];
+
+            if (resources.length) {
+                setUiResources(resources);
+            }
+        },
+
+        onMessage: (m: any) => console.log("💬", m),
+        onError: (e: any) => console.error("❌", e),
+    });
+
+    /* =========================
+       MOCK CONTROLS
+    ========================= */
+
+    const loadMockListing = () => {
+        setPage("listing");
+        setUiResources(MOCK_LISTING_RESOURCES);
+    };
+
+    const loadMockProductDetails = () => {
+        setPage("product");
+        setUiResources(MOCK_PRODUCT_DETAILS_RESOURCE);
+    };
+
+    const loadMockCart = () => {
+        setPage("cart");
+        setUiResources(MOCK_CART_RESOURCE);
+    };
+
+    /* =========================
+       UI
+    ========================= */
+
+    return (
+        <div className="font-montserrat min-h-screen bg-white">
+            {/* ================= HERO ================= */}
+            <section
+                className="relative text-white px-12 py-20 flex items-center"
+                style={{
+                    backgroundImage:
+                        "linear-gradient(86.7deg, #e58023 -30.01%, #cf578f 95.46%, #e03d24 206.73%)",
+                }}
+            >
+                <div className="max-w-xl space-y-6">
+                    <h1 className="text-5xl font-semibold leading-tight">
+                        Experience AI Powered
+                        <br />
+                        Event Planning
+                    </h1>
+                    <p className="opacity-90">
+                        By expert planners, with professional partners,
+                        <br />
+                        for everything for your entire event
+                    </p>
+                    <button className="bg-white text-black px-6 py-3 rounded-full font-medium">
+                        Plan with Hafla AI →
+                    </button>
+                </div>
+
+                <img
+                    src="/images/hero-woman.png"
+                    className="absolute right-16 bottom-0 w-[420px]"
+                    alt="Hafla Hero"
+                />
+            </section>
+
+            {/* ================= MOCK CONTROLS ================= */}
+            <div className="p-6 flex gap-4 border-b">
+                <button onClick={loadMockListing} className="btn">
+                    Mock Listing
+                </button>
+                <button onClick={loadMockProductDetails} className="btn">
+                    Mock Product Details
+                </button>
+                <button onClick={loadMockCart} className="btn">
+                    Mock Cart
+                </button>
+            </div>
+
+            {/* ================= PAGE TITLE ================= */}
+            <h2 className="px-6 py-4 text-xl font-semibold">
+                {page === "listing" && "Recommended options"}
+                {page === "product" && "Product details"}
+                {page === "cart" && "Your cart"}
+            </h2>
+
+            {/* ================= MCP UI ================= */}
+            <div className="px-6 pb-20 grid grid-cols-1 md:grid-cols-3 gap-6">
+                {uiResources.map((res, i) => (
+                    <div
+                        key={i}
+                        className="
+                    rounded-xl
+                    border
+                    shadow-sm
+                    bg-white
+                    min-h-[600px]
+                    overflow-hidden
+                "
+                    >
+                        <UIResourceRenderer
+                            resource={{
+                                uri: res.uri,
+                                mimeType: res.mimeType,
+                                text: res.text,
+                            }}
+                            onUIAction={async (action) => {
+                                if (action?.type === "prompt" && !USE_MOCK_MODE) {
+                                    await conversation.sendUserMessage(action.payload?.prompt);
+                                }
+                            }}
+                        />
+                    </div>
+                ))}
+            </div>
+
+            {/* ================= CHAT ORB ================= */}
+            {/* 
+            <div className="fixed bottom-6 right-6 w-14 h-36 bg-black text-white rounded-full flex items-center justify-center">
+                🤖
+            </div>
+            */}
+        </div>
+    );
+}
+
+
