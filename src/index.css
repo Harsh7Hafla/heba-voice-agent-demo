@@ -45,5 +45,45 @@ body {
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+/* Fix for MCP UI Iframe scaling */
+#mcp-ui iframe {
+  width: 100% !important;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+}
+
+/* Dynamic heights based on view */
+.view-results iframe {
+  min-height: 480px;
+}
+
+.view-product iframe {
+  min-height: 1200px;
+}
+
+.view-cart iframe {
+  min-height: 800px;
+}
+
+/* Ensure the container doesn't restrict content */
+#mcp-ui {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+/* For search results, use a grid if there are multiple items */
+#mcp-ui.view-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+}
+
+/* Ensure individual cards take full width of their grid cell */
+#mcp-ui>div {
+  width: 100%;
 }

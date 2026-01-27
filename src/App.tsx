@@ -87,84 +87,269 @@ const MOCK_CART_RESOURCE: UIResource[] = [
 ];
 
 /* =========================
+   HELPER FUNCTIONS
+========================= */
+
+// Extract product handle from Shopify URL
+function getProductHandle(url: string): string | null {
+    try {
+        const match = url.match(/\/products\/([^?]+)/);
+        return match ? match[1] : null;
+    } catch {
+        return null;
+    }
+}
+
+// Construct Shopify product image URL
+function getShopifyImageUrl(product: any): string {
+    const handle = product.product_handle || getProductHandle(product.url);
+    if (handle) {
+        return `https://book.hafla.com/cdn/shop/files/${handle}.png`;
+    }
+    return 'https://via.placeholder.com/300x224?text=No+Image';
+}
+
+/* =========================
    CUSTOM UI COMPONENTS
 ========================= */
+
 
 function ProductListing({ products }: { products: any[] }) {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {products.map((p) => (
-                <div
-                    key={p.product_id}
-                    className="rounded-2xl border bg-white shadow-sm hover:shadow-lg transition overflow-visible"
-                >
-                    <img
-                        src={p.image}
-                        className="h-56 w-full object-cover"
-                        alt={p.title}
-                    />
-                    <div className="p-4 space-y-1">
-                        <p className="text-xs text-gray-500 uppercase">Hafla</p>
-                        <h3 className="font-semibold text-lg">{p.title}</h3>
-                        <p className="text-sm text-gray-600 line-clamp-2">
-                            {p.description}
-                        </p>
-                        <p className="font-semibold mt-2">AED {p.price}</p>
+            {products.map((p) => {
+                // Handle price display
+                let priceDisplay = '';
+                if (p.price !== undefined) {
+                    priceDisplay = `AED ${p.price}`;
+                } else if (p.price_range) {
+                    const min = p.price_range.min;
+                    const max = p.price_range.max;
+                    if (min === max) {
+                        priceDisplay = `AED ${min}`;
+                    } else {
+                        priceDisplay = `AED ${min} - ${max}`;
+                    }
+                }
+
+                const image = p.image || getShopifyImageUrl(p);
+
+                return (
+                    <div
+                        key={p.product_id || p.id}
+                        className="rounded-2xl border bg-white shadow-sm hover:shadow-lg transition overflow-visible"
+                    >
+                        <img
+                            src={image}
+                            className="h-56 w-full object-cover bg-gray-100"
+                            alt={p.title}
+                            onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                if (target.src.endsWith('.png')) {
+                                    target.src = target.src.replace('.png', '.jpg');
+                                } else if (target.src.endsWith('.jpg')) {
+                                    target.src = target.src.replace('.jpg', '.webp');
+                                } else {
+                                    target.src = 'https://via.placeholder.com/300x224?text=No+Image';
+                                }
+                            }}
+                        />
+                        <div className="p-4 space-y-1">
+                            <p className="text-xs text-gray-500 uppercase">Hafla</p>
+                            <h3 className="font-semibold text-lg">{p.title}</h3>
+                            <p className="text-sm text-gray-600 line-clamp-2">
+                                {p.description || p.product_type || 'Premium catering option'}
+                            </p>
+                            <p className="font-semibold mt-2">{priceDisplay}</p>
+                        </div>
                     </div>
-                </div>
-            ))}
+                );
+            })}
         </div>
     );
 }
 
 function ProductDetails({ product }: { product: any }) {
+    // Handle both mock and real API data structures
+    const image = product.image || getShopifyImageUrl(product);
+    const description = product.description || 'No description available';
+
+    // Get variants - either from variants array or from options/availabilityMatrix
+    const variants = product.variants || [];
+    const hasOptions = product.options && product.options.length > 0;
+
+    // Price handling: real API has price_range, mock has price
+    let priceDisplay = '';
+    if (product.price) {
+        priceDisplay = `AED ${product.price}`;
+    } else if (product.price_range) {
+        const min = product.price_range.min;
+        const max = product.price_range.max;
+        if (min === max) {
+            priceDisplay = `AED ${min}`;
+        } else {
+            priceDisplay = `AED ${min} - ${max}`;
+        }
+    } else if (product.selectedOrFirstAvailableVariant?.price) {
+        priceDisplay = `AED ${product.selectedOrFirstAvailableVariant.price}`;
+    }
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-3xl shadow-lg p-8">
             <img
-                src={product.image}
-                className="rounded-2xl object-cover w-full h-[560px]"
+                src={image}
+                className="rounded-2xl object-cover w-full h-[560px] bg-gray-100"
                 alt={product.title}
+                onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (target.src.endsWith('.png')) {
+                        target.src = target.src.replace('.png', '.jpg');
+                    } else if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                    } else {
+                        target.src = 'https://via.placeholder.com/560x560?text=No+Image';
+                    }
+                }}
             />
             <div className="space-y-5">
                 <p className="text-xs text-gray-500 uppercase">Hafla</p>
                 <h1 className="text-3xl font-bold">{product.title}</h1>
-                <p className="text-gray-600">{product.description}</p>
+                <p className="text-gray-600">{description}</p>
+
+                {/* Show available variants */}
+                {variants.length > 0 && (
+                    <div className="border rounded-lg p-4 bg-gray-50">
+                        <h3 className="font-semibold mb-3">Available Options</h3>
+                        <div className="max-h-64 overflow-y-auto space-y-2">
+                            {variants.map((variant: any, idx: number) => (
+                                <div
+                                    key={variant.variant_id || idx}
+                                    className="flex justify-between items-center p-2 bg-white rounded border text-sm"
+                                >
+                                    <span className="font-medium">{variant.title}</span>
+                                    <span className="text-gray-700">
+                                        {variant.currency || 'AED'} {variant.price}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Show options if no variants array */}
+                {!variants.length && hasOptions && (
+                    <div className="border rounded-lg p-4 bg-gray-50">
+                        <h3 className="font-semibold mb-3">Options</h3>
+                        {product.options.map((option: any, idx: number) => {
+                            const optionName = Object.keys(option)[0];
+                            const optionValues = option[optionName];
+                            return (
+                                <div key={idx} className="mb-3">
+                                    <p className="text-sm font-medium text-gray-600">{optionName}:</p>
+                                    <p className="text-sm text-gray-700">{optionValues.join(', ')}</p>
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+
+                {product.selectedOrFirstAvailableVariant && variants.length === 0 && (
+                    <div className="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg">
+                        Selected: {product.selectedOrFirstAvailableVariant.title}
+                    </div>
+                )}
                 <div className="text-2xl font-semibold">
-                    AED {product.price}
+                    {priceDisplay}
                 </div>
-                <button className="w-full py-3 rounded-xl bg-black text-white">
-                    Add to cart
-                </button>
+                {product.url && (
+                    <a
+                        href={product.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full py-3 rounded-xl bg-black text-white text-center hover:bg-gray-800 transition"
+                    >
+                        View Full Details
+                    </a>
+                )}
             </div>
         </div>
     );
 }
 
 function CartView({ cart }: { cart: any }) {
+    // Handle both mock and real API data structures
+    const items = cart.items || cart.lines || [];
+
+    // Calculate total from real API structure or use mock total
+    let total = 0;
+    if (cart.total !== undefined) {
+        total = cart.total;
+    } else if (cart.cost?.total_amount?.amount) {
+        total = parseFloat(cart.cost.total_amount.amount);
+    }
+
+    const currency = cart.cost?.total_amount?.currency || 'AED';
+    const checkoutUrl = cart.checkout_url;
+
     return (
         <div className="bg-white rounded-3xl shadow-lg p-8 space-y-6 max-w-2xl">
             <h2 className="text-2xl font-bold">Your cart</h2>
-            {cart.items.map((item: any) => (
-                <div
-                    key={item.productId}
-                    className="flex justify-between border-b pb-4"
-                >
-                    <div>
-                        <p className="font-semibold">{item.title}</p>
-                        <p className="text-sm text-gray-500">
-                            Qty: {item.quantity}
-                        </p>
-                    </div>
-                    <p className="font-semibold">AED {item.price}</p>
-                </div>
-            ))}
+            {items.length === 0 ? (
+                <p className="text-gray-500">Your cart is empty</p>
+            ) : (
+                items.map((item: any, index: number) => {
+                    // Extract data based on structure (real API vs mock)
+                    const title = item.title || item.merchandise?.product?.title || 'Product';
+                    const quantity = item.quantity || 1;
+                    const itemId = item.productId || item.id || index;
+
+                    // Price calculation
+                    let price = 0;
+                    if (item.price !== undefined) {
+                        price = item.price;
+                    } else if (item.cost?.total_amount?.amount) {
+                        price = parseFloat(item.cost.total_amount.amount);
+                    }
+
+                    const variantTitle = item.merchandise?.title;
+
+                    return (
+                        <div
+                            key={itemId}
+                            className="flex justify-between border-b pb-4"
+                        >
+                            <div>
+                                <p className="font-semibold">{title}</p>
+                                {variantTitle && (
+                                    <p className="text-xs text-gray-500">{variantTitle}</p>
+                                )}
+                                <p className="text-sm text-gray-500">
+                                    Qty: {quantity}
+                                </p>
+                            </div>
+                            <p className="font-semibold">{currency} {price.toFixed(2)}</p>
+                        </div>
+                    );
+                })
+            )}
             <div className="flex justify-between text-lg font-bold">
                 <span>Total</span>
-                <span>AED {cart.total}</span>
+                <span>{currency} {total.toFixed(2)}</span>
             </div>
-            <button className="w-full py-3 rounded-xl bg-black text-white">
-                Checkout
-            </button>
+            {checkoutUrl ? (
+                <a
+                    href={checkoutUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full py-3 rounded-xl bg-black text-white text-center hover:bg-gray-800 transition"
+                >
+                    Proceed to Checkout
+                </a>
+            ) : (
+                <button className="w-full py-3 rounded-xl bg-black text-white">
+                    Checkout
+                </button>
+            )}
         </div>
     );
 }
@@ -195,6 +380,9 @@ export default function App() {
     const conversation = useConversation({
         connectionType: "webrtc",
         enabled: !USE_MOCK_MODE,
+        options: {
+            interruptionThreshold: 0.5, // 0.5s of user audio will stop the AI
+        },
 
         clientTools: {
             addProductToCart: async ({ productId, quantity = 1 }) => {
@@ -216,25 +404,54 @@ export default function App() {
             },
         },
 
-/**
-         * 🔥 CORE MCP HANDLER
-         * This is what creates the “page navigation” illusion
-         */
+        /**
+                 * 🔥 CORE MCP HANDLER
+                 * This is what creates the “page navigation” illusion
+                 */
         onMCPToolCall: (toolCall: any) => {
             console.log("✅ MCP TOOL CALL", toolCall);
+            console.log("🔧 Tool Name:", toolCall.tool_name);
+            console.log("� Tool Arguments:", toolCall.arguments);
+            console.log("�📥 Tool Result:", toolCall.result);
 
+            // Extract JSON data from text-type results
+            const textResult = toolCall.result?.find((r: any) => r.type === "text");
+            let jsonData: any = null;
+
+            if (textResult?.text) {
+                try {
+                    jsonData = JSON.parse(textResult.text);
+                    console.log("📊 Parsed JSON Data:", jsonData);
+                } catch (e) {
+                    console.error("❌ Failed to parse text result:", e);
+                }
+            }
+
+            // Extract resource URLs (for UIResourceRenderer fallback)
             const resources: UIResource[] =
                 toolCall.result
                     ?.filter((r: any) => r.type === "resource")
                     .map((r: any) => r.resource) ?? [];
 
-            if (resources.length === 0) return;
+            console.log("📦 Extracted Resources:", resources);
+            console.log("📊 Resource Count:", resources.length);
 
             switch (toolCall.tool_name) {
                 // 🔍 SEARCH RESULTS PAGE
                 case "search_shop_catalog": {
                     setView("results");
-                    setUiResources(resources); // REPLACE
+
+                    // Inject instructions into the tool result text (Heba's knowledge source)
+                    const textResult = toolCall.result?.find((r: any) => r.type === "text");
+                    if (textResult) {
+                        try {
+                            const p = JSON.parse(textResult.text);
+                            p.instructions = "DISPLAY ONLY. Do NOT narrate names/prices. Just say: 'I found these options.'";
+                            textResult.text = JSON.stringify(p);
+                        } catch (e) { }
+                    }
+
+                    setUiResources(resources);
                     setActiveResource(null);
                     break;
                 }
@@ -242,14 +459,25 @@ export default function App() {
                 // 📄 PRODUCT DETAILS PAGE
                 case "get_product_details": {
                     setView("product");
-                    setActiveResource(resources[0]); // SINGLE PAGE
+
+                    const textResult = toolCall.result?.find((r: any) => r.type === "text");
+                    if (textResult) {
+                        try {
+                            const p = JSON.parse(textResult.text);
+                            p.instructions = "Summarize briefly. Tell users they can choose specific packages (variants).";
+                            textResult.text = JSON.stringify(p);
+                        } catch (e) { }
+                    }
+
+                    setUiResources(resources);
+                    setActiveResource(resources[0]);
                     break;
                 }
 
                 // 🛒 CART PAGE
                 case "update_cart": {
                     setView("cart");
-                    setUiResources(resources); // Cart summary UI
+                    setUiResources(resources);
                     setActiveResource(null);
                     break;
                 }
@@ -337,11 +565,16 @@ export default function App() {
                         <br />
                         for everything for your entire event
                     </p>
-                        <button
-                            onClick={handlePlanWithAI}
-                            className="
-                                bg-white
-                                text-black
+                    <button
+                        onClick={
+                            (conversation.status === "connected" || conversation.status === "connecting")
+                                ? () => conversation.endSession()
+                                : handlePlanWithAI
+                        }
+                        className={`
+                                ${(conversation.status === "connected" || conversation.status === "connecting")
+                                ? "bg-red-500 text-white hover:bg-red-600"
+                                : "bg-white text-black hover:bg-black hover:text-white"}
                                 px-8
                                 py-3
                                 rounded-full
@@ -349,14 +582,14 @@ export default function App() {
                                 cursor-pointer
                                 transition-all
                                 duration-300
-                                hover:bg-black
-                                hover:text-white
                                 hover:shadow-xl
                                 active:scale-95
-                            "
-                        >
-                            Plan with Hafla AI →
-                        </button>
+                            `}
+                    >
+                        {conversation.status === "connecting" ? "Connecting..." :
+                            conversation.status === "connected" ? "End Conversation ●" :
+                                "Plan with Heba AI →"}
+                    </button>
 
                 </div>
                 <img
@@ -392,29 +625,43 @@ export default function App() {
             {/* ================= CONTENT ================= */}
             <div
                 id="mcp-ui"
-                className="px-6 pb-20">
+                className={`px-6 pb-20 view-${view}`}>
                 {uiResources.map((res, i) => {
+                    console.log("🔍 RAW RESOURCE:", res);
+
                     let parsed: any = null;
-                    try {
-                        parsed = res.text ? JSON.parse(res.text) : null;
-                    } catch { }
-
-                    if (parsed?.products) {
-                        return <ProductListing key={i} products={parsed.products} />;
+                    if (res.mimeType === "application/json" && res.text) {
+                        try {
+                            parsed = JSON.parse(res.text);
+                            console.log("📦 PARSED DATA:", parsed);
+                        } catch (e) {
+                            console.error("❌ Failed to parse JSON:", e);
+                        }
                     }
 
-                    if (parsed?.product) {
-                        return <ProductDetails key={i} product={parsed.product} />;
-                    }
+                    // COMMENTED OUT: Custom component rendering - using MCP UIResourceRenderer instead
+                    // if (parsed?.products) {
+                    //     console.log("✅ Rendering ProductListing");
+                    //     return <ProductListing key={i} products={parsed.products} />;
+                    // }
 
-                    if (parsed?.cart) {
-                        return <CartView key={i} cart={parsed.cart} />;
-                    }
+                    // if (parsed?.product) {
+                    //     console.log("✅ Rendering ProductDetails");
+                    //     return <ProductDetails key={i} product={parsed.product} />;
+                    // }
+
+                    // if (parsed?.cart) {
+                    //     console.log("✅ Rendering CartView");
+                    //     return <CartView key={i} cart={parsed.cart} />;
+                    // }
+
+                    console.log("⚡ Using MCP UIResourceRenderer");
 
                     return (
                         <div
                             key={i}
-                            className="rounded-xl border shadow-sm bg-white min-h-[600px] overflow-hidden"
+                            className="w-full rounded-xl border shadow-sm bg-white overflow-visible"
+                            style={{ minHeight: 'auto' }}
                         >
                             <UIResourceRenderer
                                 resource={{
@@ -452,6 +699,35 @@ export default function App() {
                     );
                 })}
             </div>
+            {/* ================= FLOATING CALL STATUS ================= */}
+            {conversation.status === "connected" && (
+                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 animate-bounce-subtle">
+                    <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                        <span className="text-sm font-medium">Heba is listening...</span>
+                    </div>
+                    <div className="w-px h-4 bg-gray-700" />
+                    <button
+                        onClick={() => conversation.endSession()}
+                        className="text-sm font-bold text-red-400 hover:text-red-300 transition"
+                    >
+                        End Conversation
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
+
+// Add simple CSS animation for the status bar
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes bounce-subtle {
+        0%, 100% { transform: translate(-50%, 0); }
+        50% { transform: translate(-50%, -4px); }
+    }
+    .animate-bounce-subtle {
+        animation: bounce-subtle 2s ease-in-out infinite;
+    }
+`;
+document.head.appendChild(style);
