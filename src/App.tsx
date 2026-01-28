@@ -548,19 +548,19 @@ export default function App() {
         <div className="font-montserrat min-h-screen bg-white">
             {/* ================= HERO ================= */}
             <section
-                className="relative text-white px-12 py-20 flex items-center"
+                className="relative text-white px-6 py-24 md:px-12 md:py-20 flex flex-col md:flex-row items-center text-center md:text-left overflow-hidden"
                 style={{
                     backgroundImage:
                         "linear-gradient(86.7deg, #e58023 -30.01%, #cf578f 95.46%, #e03d24 206.73%)",
                 }}
             >
-                <div className="max-w-xl space-y-6">
-                    <h1 className="text-5xl font-semibold leading-tight">
+                <div className="max-w-xl space-y-6 z-10 w-full flex flex-col items-center md:items-start">
+                    <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
                         Experience AI Powered
                         <br />
                         Event Planning
                     </h1>
-                    <p className="opacity-90">
+                    <p className="opacity-90 text-sm md:text-base">
                         By expert planners, with professional partners,
                         <br />
                         for everything for your entire event
@@ -590,12 +590,25 @@ export default function App() {
                             conversation.status === "connected" ? "End Conversation ●" :
                                 "Plan with Heba AI →"}
                     </button>
-
                 </div>
                 <img
                     src="/images/hero-woman.png"
-                    className="absolute right-16 bottom-0 w-[640px] h-[420px]"
+                    className="hidden md:block absolute right-16 bottom-0 w-[640px] h-[420px]"
                 />
+
+                {/* Wavy divider for mobile */}
+                <div className="md:hidden absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+                    <svg
+                        viewBox="0 0 1200 120"
+                        preserveAspectRatio="none"
+                        className="relative block w-[calc(100%+2px)] -left-[1px] h-[60px] translate-y-[1px]"
+                    >
+                        <path
+                            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5,73.84-4.34,147.54,16.9,218.2,35.28,69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V120H0Z"
+                            fill="#FFFFFF"
+                        ></path>
+                    </svg>
+                </div>
             </section>
 
             {/* ================= MOCK CONTROLS ================= */}
@@ -701,17 +714,17 @@ export default function App() {
             </div>
             {/* ================= FLOATING CALL STATUS ================= */}
             {conversation.status === "connected" && (
-                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 animate-bounce-subtle">
+                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black text-white px-4 py-3 md:px-6 rounded-full shadow-2xl flex items-center gap-3 md:gap-4 animate-bounce-subtle w-auto max-w-[95vw] sm:max-w-max whitespace-nowrap">
                     <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                        <span className="text-sm font-medium">Heba is listening...</span>
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse flex-shrink-0" />
+                        <span className="text-xs md:text-sm font-medium">Heba is listening...</span>
                     </div>
-                    <div className="w-px h-4 bg-gray-700" />
+                    <div className="w-px h-4 bg-gray-700 hidden xs:block" />
                     <button
                         onClick={() => conversation.endSession()}
-                        className="text-sm font-bold text-red-400 hover:text-red-300 transition"
+                        className="text-xs md:text-sm font-bold text-red-400 hover:text-red-300 transition"
                     >
-                        End Conversation
+                        End <span className="hidden xs:inline">Conversation</span>
                     </button>
                 </div>
             )}
@@ -724,10 +737,11 @@ const style = document.createElement('style');
 style.textContent = `
     @keyframes bounce-subtle {
         0%, 100% { transform: translate(-50%, 0); }
-        50% { transform: translate(-50%, -4px); }
+        50% { transform: translate(-50%, -6px); }
     }
     .animate-bounce-subtle {
         animation: bounce-subtle 2s ease-in-out infinite;
     }
 `;
 document.head.appendChild(style);
+

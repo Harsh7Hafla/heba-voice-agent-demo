@@ -80,10 +80,26 @@ button {
 /* For search results, use a grid if there are multiple items */
 #mcp-ui.view-results {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
-/* Ensure individual cards take full width of their grid cell */
+@media (max-width: 640px) {
+  #mcp-ui.view-results {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Ensure individual cards take full width of their grid cell and don't overflow */
 #mcp-ui>div {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Prevent body from scrolling horizontally due to UI components */
+body {
+  overflow-x: hidden;
   width: 100%;
 }
