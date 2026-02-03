@@ -539,7 +539,7 @@ export default function App() {
 
         // real ElevenLabs mode (optional, if you already have it)
         await conversation.startSession({
-            agentId: "agent_2101kfg9w7pnf4dvrqpt3jkd7s5a",
+            agentId: "agent_7601kcnkqfntev8tb1b3a5ez089g",
             connectionType: "webrtc",
         });
     };
