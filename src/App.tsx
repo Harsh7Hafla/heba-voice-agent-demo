@@ -394,11 +394,11 @@ export default function App() {
                 console.log("🔎 browseProductIdByName", name);
                 return name;
             },
-            open_cart: async ({ cartUrl }: { cartUrl: string }) => {
+            openCart: async ({ cartUrl }: { cartUrl: string }) => {
                 window.open(cartUrl, "_blank", "noopener,noreferrer");
                 return "Opened cart";
             },
-            redirect_to_checkout: async ({ url }: { url: string }) => {
+            redirectToCheckout: async ({ url }: { url: string }) => {
                 window.open(url, "_blank", "noopener,noreferrer");
                 return "Redirected to checkout";
             },
